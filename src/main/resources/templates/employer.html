@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>TV LAAYOUNE - Inventaire</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <!-- easy pie chart-->
+  <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+  <!-- owl carousel -->
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="css/widgets.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+  <link href="css/xcharts.min.css" rel=" stylesheet">
+  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+  <!-- =======================================================
+    Theme Name: NiceAdmin
+    Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+</head>
+
+<body>
+  <!-- container section start -->
+  
+  <section id="container" class="">
+
+
+
+    <header class="header dark-bg">
+
+<div th:replace= "menu_header :: menu_header"></div>
+
+    </header>
+
+
+
+
+
+
+
+
+
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+     
+        
+        
+        
+        
+
+
+<div th:replace= "menu_left :: menu_left"></div>
+
+        
+        
+        
+        
+
+    </aside>
+    <!--sidebar end-->
+
+
+
+
+
+
+    <!--main content start-->
+    <section id="main-content">
+      
+
+
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> List of Employers</h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a class="" th:href="@{/index}">Home</a></li>
+              <li><i class="fa fa-bars"></i>Employers</li>
+            </ol>
+          </div>
+        </div>
+        <!-- page start-->
+
+       <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Employers
+              </header>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add New</button>
+
+              <table class="table table-striped table-advance table-hover">
+                <thead>
+                  <tr>            
+                    <th><i ></i> Id</th>
+                    <th><i class="icon_star"></i> FName</th>
+                    <th><i class="icon_pin_alt"></i> LName</th>
+                    <th><i class="icon_star"></i> Phone</th>
+                    <th><i class="icon_star"></i> Email</th>
+                    <th><i class="icon_pin_alt"></i> City</th>
+                    <th><i class="icon_pin_alt"></i> State</th>
+					<th><i class="icon_cogs"></i> Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+				 <tr th:each="employer:${employers}">
+				 	<td th:text="${employer.id}">Id</td>
+					<td th:text="${employer.employer_fname}">FName</td>
+					<td th:text="${employer.employer_lname}">LName</td>
+					<td th:text="${employer.employer_phone}">Phone</td>
+					<td th:text="${employer.employer_email}">Email</td>
+					<td th:text="${employer.city.name}">City</td>
+					<td th:text="${employer.state.state_name}">State</td>
+
+                    <td>
+                      <div class="btn-group">
+                        <a class="btn btn-primary" id="editButton" th:href="@{/employers/findById/(id=${employer.id})}"><i class="icon_pencil-edit"></i></a>
+                        <a class="btn btn-danger" id="deleteButton" th:href="@{/employers/delete/(id=${employer.id})}"><i class="icon_close_alt2"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+
+		<!-- page end-->
+      </section>
+
+
+
+
+
+
+
+
+
+  <!-- container section end -->
+  
+  
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <form th:action="@{/employers/addNew}" method="post">
+  <div class="modal-dialog modal-lg" role="document" style="width:70%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New employer Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<table width="100%">
+			<tr>
+				<td width="50%">
+				  
+				 <div class="form-group row">
+				    <label for="txtFNameAdd" class="col-sm-4 col-form-label">First Name: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtFNameAdd" name="employer_fname" placeholder="First name">
+				    </div>
+				  </div>
+				  
+				  
+				  
+				  <div class="form-group row">
+				    <label for="txtLastNameAdd" class="col-sm-4 col-form-label">Last Name: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtLastNameAdd" name="employer_lname" placeholder="Last name">
+				    </div>
+				  </div>
+				  
+				 
+				 
+				 
+				  <div class="form-group row">
+				    <label for="txtPhoneAdd" class="col-sm-4 col-form-label">Phone: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtPhoneAdd" name="employer_phone" placeholder="Phone">
+				    </div>
+				  </div>
+				  
+				  
+				  
+				
+				  
+				  
+				  
+				</td>
+				<td width="50%" style="padding-left:10px">
+				  <div class="form-group row">
+
+				  </div>
+				  
+				  
+				    <div class="form-group row">
+				    <label for="txtEmailAdd" class="col-sm-4 col-form-label">Email: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtEmailAdd" name="employer_email" placeholder="Email">
+				    </div>
+				  </div>
+				  
+
+
+
+				   <div class="form-group row">
+				    <label for="ddlCityAdd" class="col-sm-4 col-form-label">City: </label>
+				    <div class="col-sm-6">
+					    <select class="form-control" id="ddlCityAdd" name="cityid">
+			               <option>-SELECT-</option>			    					    
+					       <option th:each="city : ${cities}"
+						        th:value="${city.id}"
+						        th:text="${city.name}">
+						   </option>
+					    </select>				    
+				    </div>
+				  </div>
+				 
+				 
+				 
+				 <div class="form-group row">
+				    <label for="ddlStateAdd" class="col-sm-4 col-form-label">State: </label>
+				    <div class="col-sm-6">
+					    <select class="form-control" id="ddlStateAdd" name="stateid">
+			               <option>-SELECT-</option>			    					    
+					       <option th:each="state : ${states}"
+						        th:value="${state.id}"
+						        th:text="${state.state_name}">
+						   </option>
+					    </select>				    
+				    </div>
+				  </div>
+				  
+				  
+				  
+				  
+
+				  
+				  
+				  
+
+				</td>
+			</tr>
+		</table>
+		  <button type="submit" class="btn btn-primary">OK</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+ </form>
+  </div>
+ 
+
+
+
+
+
+
+
+
+ 
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <form th:action="@{/employers/update}" method="put">
+  <div class="modal-dialog modal-lg" role="document" style="width:70%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Employer Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form>
+		<table width="100%">
+			<tr>
+				<td width="50%">
+				
+				<div class="form-group row">
+				    <label for="txtIdEdit" class="col-sm-4 col-form-label">Id: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtIdEdit" name="id" placeholder="State Id">
+				    </div>
+				  </div>
+				    
+				  
+				 
+				 
+				 <div class="form-group row">
+				    <label for="txtFNameEdit" class="col-sm-4 col-form-label">First Name: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtFNameEdit" name="employer_fname" placeholder="First name">
+				    </div>
+				  </div>
+				  
+				  
+				  
+				  <div class="form-group row">
+				    <label for="txtLastNameEdit" class="col-sm-4 col-form-label">Last Name: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtLastNameEdit" name="employer_lname" placeholder="Last name">
+				    </div>
+				  </div>
+				  
+				 
+				 
+				 
+				  <div class="form-group row">
+				    <label for="txtPhoneEdit" class="col-sm-4 col-form-label">Phone: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtPhoneEdit" name="employer_phone" placeholder="Phone">
+				    </div>
+				  </div>
+				  
+				  
+				  
+				  
+				 
+				 
+				 
+				</td>
+				<td width="50%" style="padding-left:10px">
+				  <div class="form-group row">
+
+				  </div>
+				  
+				  
+				  
+				  
+				      <div class="form-group row">
+				    <label for="txtEmailEdit" class="col-sm-4 col-form-label">Email: </label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" id="txtEmailEdit" name="employer_email" placeholder="Email">
+				    </div>
+				  </div>
+				  
+
+
+
+				   <div class="form-group row">
+				    <label for="ddlCityEdit" class="col-sm-4 col-form-label">City: </label>
+				    <div class="col-sm-6">
+					    <select class="form-control" id="ddlCityEdit" name="cityid">
+			               <option>-SELECT-</option>			    					    
+					       <option th:each="city : ${cities}"
+						        th:value="${city.id}"
+						        th:text="${city.name}">
+						   </option>
+					    </select>				    
+				    </div>
+				  </div>
+				 
+				 
+				 
+				 <div class="form-group row">
+				    <label for="ddlStateEdit" class="col-sm-4 col-form-label">State: </label>
+				    <div class="col-sm-6">
+					    <select class="form-control" id="ddlStateEdit" name="stateid">
+			               <option>-SELECT-</option>			    					    
+					       <option th:each="state : ${states}"
+						        th:value="${state.id}"
+						        th:text="${state.state_name}">
+						   </option>
+					    </select>				    
+				    </div>
+				  </div>
+				  
+				  
+				  
+				  
+
+				</td>
+			</tr>
+		</table>
+		  <button type="submit" class="btn btn-primary">OK</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+ </form>
+  </div> 
+ 
+ 
+ 
+ 
+ <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this record?</p>
+      </div>
+      <div class="modal-footer">
+        <a href="" class="btn btn-primary" id="confirmDelete">Yes, Delete</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+
+
+
+      
+
+    <section id="main-content">
+
+      
+      
+       <footer class="credits">
+
+<div th:replace= "menu_footer :: menu_footer"></div>
+
+    </footer>   
+      
+
+    </section>
+    <!--main content end-->
+  </section>
+  
+  
+  
+  <!-- container section start -->
+
+  <!-- javascripts -->
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery-ui-1.10.4.min.js"></script>
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+  <!-- bootstrap -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nice scroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!-- charts scripts -->
+  <script src="assets/jquery-knob/js/jquery.knob.js"></script>
+  <script src="js/jquery.sparkline.js" type="text/javascript"></script>
+  <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+  <script src="js/owl.carousel.js"></script>
+  <!-- jQuery full calendar -->
+  <<script src="js/fullcalendar.min.js"></script>
+    <!-- Full Google Calendar - Calendar -->
+    <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+    <!--script for this page only-->
+    <script src="js/calendar-custom.js"></script>
+    <script src="js/jquery.rateit.min.js"></script>
+    <!-- custom select -->
+    <script src="js/jquery.customSelect.min.js"></script>
+    <script src="assets/chart-master/Chart.js"></script>
+    
+<script src="js/employer.js"></script>
+
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+    <!-- custom script for this page-->
+    <script src="js/sparkline-chart.js"></script>
+    <script src="js/easy-pie-chart.js"></script>
+    <script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="js/xcharts.min.js"></script>
+    <script src="js/jquery.autosize.min.js"></script>
+    <script src="js/jquery.placeholder.min.js"></script>
+    <script src="js/gdp-data.js"></script>
+    <script src="js/morris.min.js"></script>
+    <script src="js/sparklines.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/jquery.slimscroll.min.js"></script>
+    <script>
+      //knob
+      $(function() {
+        $(".knob").knob({
+          'draw': function() {
+            $(this.i).val(this.cv + '%')
+          }
+        })
+      });
+
+      //carousel
+      $(document).ready(function() {
+        $("#owl-slider").owlCarousel({
+          navigation: true,
+          slideSpeed: 300,
+          paginationSpeed: 400,
+          singleItem: true
+
+        });
+      });
+
+      //custom select box
+
+      $(function() {
+        $('select.styled').customSelect();
+      });
+
+      /* ---------- Map ---------- */
+      $(function() {
+        $('#map').vectorMap({
+          map: 'world_mill_en',
+          series: {
+            regions: [{
+              values: gdpData,
+              scale: ['#000', '#000'],
+              normalizeFunction: 'polynomial'
+            }]
+          },
+          backgroundColor: '#eef3f7',
+          onLabelShow: function(e, el, code) {
+            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+          }
+        });
+      });
+    </script>
+
+</body>
+
+</html>

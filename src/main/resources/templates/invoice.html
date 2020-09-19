@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>TV LAAYOUNE - Inventaire</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <!-- easy pie chart-->
+  <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+  <!-- owl carousel -->
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="css/widgets.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+  <link href="css/xcharts.min.css" rel=" stylesheet">
+  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+  <!-- =======================================================
+    Theme Name: NiceAdmin
+    Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+</head>
+
+<body>
+  <!-- container section start -->
+  
+  <section id="container" class="">
+
+
+
+    <header class="header dark-bg">
+
+<div th:replace= "menu_header :: menu_header"></div>
+
+    </header>
+
+
+
+
+
+
+
+
+
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+     
+        
+        
+        
+        
+
+
+<div th:replace= "menu_left :: menu_left"></div>
+
+        
+        
+        
+        
+
+    </aside>
+    <!--sidebar end-->
+
+
+
+    <!--main content start-->
+    <section id="main-content">
+      
+
+
+
+
+
+
+
+
+
+<section class="wrapper">
+
+                <div class="col-md-12">
+                    <div class="row">
+                                <h3 class="page-header"><i class="fa fa fa-bars"></i> List of Fonctions</h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a class="" th:href="@{/index}">Home</a></li>
+              <li><i class="fa fa-bars"></i>Fonctions</li>
+            </ol>
+            
+            
+            
+            
+            <div class="col-md-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                Invoice No: <input name="id" type="text" class="form-control" ng-model="id = ${orderNo}" value="${orderNo}"/>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                Invoice Date: <input ng-model="date_affect_laayoune" name="date_affect_laayoune" type="date" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            
+            
+            
+                        <div class="col-md-4" style="height: 360px;">
+                        
+                            <div class="panel panel-primary" style="height: 100%">
+                                <div class="panel-heading">
+                                    <i class="fa fa-product-hunt"></i> Select Equipement
+                                </div>
+                                
+                                
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="ddlEquipementMakeAdd" >Equipement Name:</label>
+                                        <select class="form-control" id="ddlEquipementMakeAdd" name="equipementmakeid">
+			               <option>-SELECT-</option>			    					   
+					       <option th:each="equipementMake : ${equipementMakes}"
+						        th:value="${equipementMake.id}"
+						        th:text="${equipementMake.make_name}">
+						   </option>
+					    </select>	
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pid">Equipement ID: </label>
+                                        <input readonly="1" name="pid" type="text" class="form-control" id="pid" value="{{clickedProduct.pid}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Numero de serie: </label>
+                                        <input readonly="1" name="price" type="text" class="form-control" id="price" value="{{clickedProduct.price}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="qty">Stock: </label>
+                                        <input readonly="1" name="qty" type="text" class="form-control" id="qty" value="{{clickedProduct.qty}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="height: 360px;">
+                            <div class="panel panel-primary" style="height: 100%">
+                                <div class="panel-heading">
+                                    <i class="fa fa-user-circle"></i> Select Employer
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="Customer Name">Employer Name:</label>
+                                        <select name="cname" class="form-control" ng-model="clickedCustomer" ng-options="customer.cname for customer in customers">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cid">Employer ID: </label>
+                                        <input readonly="1" name="cid" type="text" class="form-control" id="cid" value="{{clickedCustomer.cid}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Service: </label>
+                                        <input readonly="1" name="phone" type="text" class="form-control" id="phone" value="{{clickedCustomer.phone}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="height: 360px;">
+                            <div class="panel panel-primary" style="height: 100%">
+                                <div class="panel-heading">
+                                    <i class="fa fa-sellsy"></i> Invoice Details
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group" ng-show="clickedProduct.pid != null">
+                                        <label for="qty">Quantity:</label>
+                                        <input readonly="1" name="orderQty" ng-model="qty = 1" type="text" class="form-control" id="qty" placeholder="Enter Quantity">
+                                    </div>
+                                    
+                                    <div class="form-group" ng-show="clickedProduct.pid != null && clickedCustomer.cid != null"> 
+                                        <button ng-click="addToCart()" type="submit" class="btn btn-success"><i class="fa fa-cart-plus"></i> Add To Invoice</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                  </section>
+                
+                
+                
+
+                <div class="col-md-12" style="text-align: center; margin-top: 20px;">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3><i class="fa fa-cart-plus"></i> Cart <button class="btn btn-sm btn-success"> {{cartProduct.length}} </button></h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Quantity</th>
+                                        <th>Equipement Name</th>
+                                        <th>Numero de serie</th>
+                                        <th>Marque</th>
+                                        <th>Reference</th>
+                                        <th>Action</th>
+                                        <th>Total</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="product in cartProduct">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{Equipement.pname}}</td>
+                                        <td>{{Equipement.pmarque}}</td>
+                                        <td>{{Equipement.pmarque}}</td>
+                                        <td>{{Equipement.pmarque}}</td>
+                                        <td>{{Equipement.pmarque}}</td>
+                                        <td>
+                                            <button type="button" ng-click="decreaseQty(product)" class="btn btn-danger"><i class="fa fa-minus"></i></button>
+                                            &nbsp; &nbsp; {{product.cartQty}} &nbsp; &nbsp;
+                                            <button type="button" ng-click="increaseQty(product)" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                        </td>
+                                        <td><button ng-click="removeProduct(product)" class="btn btn-danger"><i class="fa fa-remove"></i> Remove</button></td>
+                                        <td>{{product.subTotal}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                 
+                                    <tr ng-show="cartProduct.length != 0">
+                                        <td colspan="6" style="text-align: right">
+                                            <button data-toggle="modal" data-target="#checkoutModal" type="button" ng-show="cartProduct.length != 0" class="btn btn-success"><i class="fa fa-check"></i> Valider</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                     
+
+            
+
+
+
+            <!-- checkoutModal -->
+            <div id="checkoutModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" align="center"><i class="fa fa-eye"></i> Review Your Order</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <td>Order ID</td>
+                                    <td>{{oid}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Order Type</td>
+                                    <td>{{orderType}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Order Date</td>
+                                    <td>{{orderDate| date}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Customer ID</td>
+                                    <td>{{clickedCustomer.cid}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Amount</td>
+                                    <td>{{finalTotal}}</td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            Order Details: <br/>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="product in cartProduct">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{product.pname}}</td>
+                                        <td>{{product.price}}</td>
+                                        <td>{{product.cartQty}}</td>
+                                        <td>{{product.price * product.qty}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="btn btn-warning" ><i class="fa fa-print"></i> Print</button>
+                            <button data-toggle="modal" data-target="#messageModal" ng-click="checkOut()" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-check"></i> Confirm</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div id="messageModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" align="center">Congratulation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h1 style="color: green; text-align: center">
+                                Order Complete Successfully
+                            </h1>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/spring_inventory_jdbc-master" class="btn btn-default">Close</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+       
+        
+        
+        
+        
+        
+
+
+
+
+
+      
+ <section id="main-content">
+
+      
+      
+       <footer class="credits">
+
+<div th:replace= "menu_footer :: menu_footer"></div>
+
+    </footer>   
+      
+
+    </section>
+    <!--main content end-->
+  </section>
+  
+  
+  
+  <!-- container section start -->
+
+  <!-- javascripts -->
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery-ui-1.10.4.min.js"></script>
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+  <!-- bootstrap -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nice scroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!-- charts scripts -->
+  <script src="assets/jquery-knob/js/jquery.knob.js"></script>
+  <script src="js/jquery.sparkline.js" type="text/javascript"></script>
+  <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+  <script src="js/owl.carousel.js"></script>
+  <!-- jQuery full calendar -->
+  <<script src="js/fullcalendar.min.js"></script>
+    <!-- Full Google Calendar - Calendar -->
+    <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+    <!--script for this page only-->
+    <script src="js/calendar-custom.js"></script>
+    <script src="js/jquery.rateit.min.js"></script>
+    <!-- custom select -->
+    <script src="js/jquery.customSelect.min.js"></script>
+    <script src="assets/chart-master/Chart.js"></script>
+
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+    <!-- custom script for this page-->
+    <script src="js/sparkline-chart.js"></script>
+    <script src="js/easy-pie-chart.js"></script>
+    <script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="js/xcharts.min.js"></script>
+    <script src="js/jquery.autosize.min.js"></script>
+    <script src="js/jquery.placeholder.min.js"></script>
+    <script src="js/gdp-data.js"></script>
+    <script src="js/morris.min.js"></script>
+    <script src="js/sparklines.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/jquery.slimscroll.min.js"></script>
+    <script>
+      //knob
+      $(function() {
+        $(".knob").knob({
+          'draw': function() {
+            $(this.i).val(this.cv + '%')
+          }
+        })
+      });
+
+      //carousel
+      $(document).ready(function() {
+        $("#owl-slider").owlCarousel({
+          navigation: true,
+          slideSpeed: 300,
+          paginationSpeed: 400,
+          singleItem: true
+
+        });
+      });
+
+      //custom select box
+
+      $(function() {
+        $('select.styled').customSelect();
+      });
+
+      /* ---------- Map ---------- */
+      $(function() {
+        $('#map').vectorMap({
+          map: 'world_mill_en',
+          series: {
+            regions: [{
+              values: gdpData,
+              scale: ['#000', '#000'],
+              normalizeFunction: 'polynomial'
+            }]
+          },
+          backgroundColor: '#eef3f7',
+          onLabelShow: function(e, el, code) {
+            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+          }
+        });
+      });
+    </script>
+
+</body>
+
+</html>
